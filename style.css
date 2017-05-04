@@ -3,6 +3,8 @@
 }
 body{
 	background-color: #333;
+	background-image: url('http://wallpapercave.com/wp/CyT83yY.jpg');
+	background-size: cover;
 }
 
 #screenbord{
@@ -18,8 +20,8 @@ body{
 }
 #disp{
 	text-align: right;
-	font-size: 46pt;
-	padding-right: 15px;
+	font-size: 44pt;
+	padding-right: 6px;
 	font-family: 'Orbitron', sans-serif;
 
 
@@ -37,7 +39,8 @@ body{
 	width: 450px;
 	background-color: #aaa;
 	border-radius: 30px;
-	box-shadow: 0 10px 30px black;
+	box-shadow: 5px 10px 30px black;
+	border: 1px solid black;
 
 }
 button{
@@ -50,7 +53,7 @@ button{
 	margin: 4px 12px 5px 15px;
 	border-radius: 5px;
 	border-color: #222;
-	box-shadow: 1px 5px 5px black; 
+	box-shadow: 5px 5px 5px black; 
 }
 #buttons{
 	margin: 0 auto;
@@ -64,6 +67,6 @@ button{
 button:active {
     border-color: none;
 	box-shadow: none; 
-	background-color: #4277f4;
+	background-color: #222;
 }
 button:focus {outline:0;}
