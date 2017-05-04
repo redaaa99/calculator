@@ -1,10 +1,14 @@
 var pile =[];
 var dec = false;
+var stack = [];
 
 $("button").click(function() {
 
 	update($(this));
 });
+
+
+
 
 function erase()
 {
@@ -44,6 +48,7 @@ function update(arg){
 	    break;
 	    case 'ac':
 	    {
+	    	stack=[];
 	    	erase();
 	    	break;
 	    }
@@ -67,8 +72,84 @@ function update(arg){
 	    		}
 	    		disp(pile);
 	    	}
+	    	break;
 	    }
+	    case '+':
+	    {
+	    	if((typeof(pile[0]) !== 'undefined') && (Number(pile.join("")) !== 0))
+	    	{
+	    		
+	    		stack.push(Number(pile.join("")));
+	    		stack.push('+');
+	    		erase();
+	    	}
+
+	    }
+	    break;
+	    case '-':
+	    {
+	    	if((typeof(pile[0]) !== 'undefined') && (Number(pile.join("")) !== 0))
+	    	{
+	    		if(Number(pile.join("")) == 0)
+	    		{
+	    			stack.push(0);
+	    			stack.push('-');
+	    		}
+	    		else
+	    		{
+	    			stack.push(Number(pile.join("")));
+	    			stack.push('-');
+	    		}	
+	    		erase();
+	    	}
+	    }
+	    break;
+	    case '*':
+	    {
+	    	if((typeof(pile[0]) !== 'undefined') && (Number(pile.join("")) !== 0))
+	    	{
+	    		
+	    		stack.push(Number(pile.join("")));
+	    		stack.push('*');
+	    		erase();	
+	    	}
+	    }
+	    break;
+	    case '/':
+	    {
+	    	if((typeof(pile[0]) !== 'undefined') && (Number(pile.join("")) !== 0))
+	    	{
+	    		
+	    		stack.push(Number(pile.join("")));
+	    		stack.push('/');
+	    		erase();	
+	    	}
+	    }
+	    break;
+	    case '=':
+	    {
+    		if(Number(pile.join("")) == 0)
+    		{
+    			stack.push(0);
+    		}
+    		else
+    		{
+    			stack.push(Number(pile.join("")));
+    		}
+    		erase();
+    		if(eval(stack.join('')) =='Infinity')
+    		{
+    			pile.push('Error');
+    		}
+    		else
+    		{
+    			pile.push(eval(stack.join('')));
+    		}
+    		disp(pile);
+    		stack = [];
+	    }
+
+	    break;
     }
     
-
 }

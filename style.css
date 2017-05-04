@@ -39,7 +39,8 @@ body{
 	width: 450px;
 	background-color: #888;
 	border-radius: 30px;
-	box-shadow: 5px 10px 30px black;
+	box-shadow: 5px 10px 30px black,
+	3px 3px 20px rgba(255,255,255,0.5) inset;
 	border: 1px solid black;
 
 }
@@ -50,10 +51,11 @@ button{
 	background-color: #444;
 	height: 70px;
 	width: 70px;
-	margin: 4px 12px 5px 15px;
-	border-radius: 5px;
+	margin: 6px 12px 5px 15px;
+	border-radius: 50%;
 	border-color: #222;
-	box-shadow: 5px 5px 5px black; 
+	box-shadow: 5px 5px 5px black,
+				1px 1px rgba(255,255,255,0.5) inset; 
 }
 #buttons{
 	margin: 0 auto;
@@ -62,6 +64,7 @@ button{
 }
 #ac,#ce{
 	width: 42.5%;
+	border-radius: 20px;
 	background-color: #871f2a;
 }
 button:active {
