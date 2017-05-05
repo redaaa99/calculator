@@ -15,7 +15,7 @@ $("button").click(function() {
 function erase()
 {
 	pile = [];
-	$("#disp").text('0');
+	$("#disp").text('');
 }
 function disp(arr)
 {
@@ -139,7 +139,7 @@ function update(arg){
 	    {
 	    	if((typeof(pile[0]) !== 'undefined') && (Number(pile.join("")) !== 0))
 	    	{
-	    		
+
 	    		stack.push(Number(pile.join("")));
 	    		stack.push('/');
 	    		stack.push('1');
@@ -153,23 +153,9 @@ function update(arg){
 	    break;
 	    case '=':
 	    {
-
-	    		if(Number(pile.join("")) == 0)
-	    		{
-	    			if((stack[stack.length-1]=='+') || (stack[stack.length-1]=='-'))
-	    			{
-	    				stack.push('0');
-	    			}
-	    			else if((stack[stack.length-1]=='*') || (stack[stack.length-1]=='/'))
-	    			{
-	    				stack.push('1');
-	    			}
-	    			
-	    		}
-	    		else
-	    		{
-	    			stack.push(Number(pile.join("")));
-	    		}
+	    		stack.push(Number(pile.join("")));
+	    		
+	    		alert(stack);
 	    		erase();
 	    		if(eval(stack.join('')) =='Infinity')
 	    		{
@@ -192,10 +178,7 @@ function update(arg){
 	    			
 	    		}
 	    		disp(pile);
-	    		
-
-	    		
-    		stack = [];	
+    			stack = [];	
 	    	
 	    }
 
