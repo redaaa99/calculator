@@ -1,10 +1,12 @@
 var pile =[];
-var dec = false;
+
 var stack = [];
 
 $("button").click(function() {
-
+	
+	
 	update($(this));
+
 });
 
 
@@ -13,11 +15,12 @@ $("button").click(function() {
 function erase()
 {
 	pile = [];
-	$("#disp").text(0);
+	$("#disp").text('0');
 }
 function disp(arr)
 {
-	$("#disp").text(pile.join(""));
+	$("#disp").text(arr.join(""));
+
 }
 function update(arg){
 	switch(arg.attr('value')) {
@@ -41,7 +44,7 @@ function update(arg){
 	    {
 	    	if((pile.length<8) && (typeof(pile[0]) !== 'undefined'))
 		    {
-		    	pile.push(0);
+		    	pile.push('0');
 		    	disp(pile);
 		    }
 	    }
@@ -54,6 +57,7 @@ function update(arg){
 	    }
 	    case 'ce':
 	    {
+
 	    	break;
 	    }
 	    case '.':
@@ -81,6 +85,11 @@ function update(arg){
 	    		
 	    		stack.push(Number(pile.join("")));
 	    		stack.push('+');
+	    		stack.push('0');
+	    		x=eval(stack.join(""));
+	    		stack=[];
+	    		stack.push(x.toString());
+	    		stack.push('+');
 	    		erase();
 	    	}
 
@@ -88,20 +97,26 @@ function update(arg){
 	    break;
 	    case '-':
 	    {
-	    	if((typeof(pile[0]) !== 'undefined') && (Number(pile.join("")) !== 0))
-	    	{
-	    		if(Number(pile.join("")) == 0)
+
+	    		if(pile.join("") == "0")
 	    		{
-	    			stack.push(0);
+	    			alert("oui");
+	    			stack.push('0');
 	    			stack.push('-');
 	    		}
 	    		else
 	    		{
 	    			stack.push(Number(pile.join("")));
 	    			stack.push('-');
+	    			stack.push('0');
+	    			x=eval(stack.join(""));
+	    			stack=[];
+	    			stack.push(x.toString());
+	    			stack.push('-');
+	    			erase();
 	    		}	
 	    		erase();
-	    	}
+	    	
 	    }
 	    break;
 	    case '*':
@@ -111,7 +126,12 @@ function update(arg){
 	    		
 	    		stack.push(Number(pile.join("")));
 	    		stack.push('*');
-	    		erase();	
+	    		stack.push('1');
+	    		x=eval(stack.join(""));
+	    		stack=[];
+	    		stack.push(x.toString());
+	    		stack.push('*');
+	    		erase();
 	    	}
 	    }
 	    break;
@@ -122,31 +142,62 @@ function update(arg){
 	    		
 	    		stack.push(Number(pile.join("")));
 	    		stack.push('/');
-	    		erase();	
+	    		stack.push('1');
+	    		x=eval(stack.join(""));
+	    		stack=[];
+	    		stack.push(x.toString());
+	    		stack.push('/');
+	    		erase();
 	    	}
 	    }
 	    break;
 	    case '=':
 	    {
-    		if(Number(pile.join("")) == 0)
-    		{
-    			stack.push(0);
-    		}
-    		else
-    		{
-    			stack.push(Number(pile.join("")));
-    		}
-    		erase();
-    		if(eval(stack.join('')) =='Infinity')
-    		{
-    			pile.push('Error');
-    		}
-    		else
-    		{
-    			pile.push(eval(stack.join('')));
-    		}
-    		disp(pile);
-    		stack = [];
+
+	    		if(Number(pile.join("")) == 0)
+	    		{
+	    			if((stack[stack.length-1]=='+') || (stack[stack.length-1]=='-'))
+	    			{
+	    				stack.push('0');
+	    			}
+	    			else if((stack[stack.length-1]=='*') || (stack[stack.length-1]=='/'))
+	    			{
+	    				stack.push('1');
+	    			}
+	    			
+	    		}
+	    		else
+	    		{
+	    			stack.push(Number(pile.join("")));
+	    		}
+	    		erase();
+	    		if(eval(stack.join('')) =='Infinity')
+	    		{
+	    			pile.push('Error');
+	    		}
+	    		else
+	    		{
+	    			var x = eval(stack.join(''));
+					str = x.toString();
+
+	    			if(str.length<8)
+	    			{
+	    				alert(stack);
+	    				pile.push(eval(stack.join('')));
+	    			}
+	    			else
+	    			{
+	    				pile=[];
+	    				pile.push("Math Error");
+	    			}
+	    			
+	    		}
+	    		disp(pile);
+	    		
+
+	    		
+    		stack = [];	
+	    	
 	    }
 
 	    break;
