@@ -57,7 +57,8 @@ function update(arg){
 	    }
 	    case 'ce':
 	    {
-
+	    	stack=[];
+	    	erase();
 	    	break;
 	    }
 	    case '.':
@@ -100,7 +101,6 @@ function update(arg){
 
 	    		if(pile.join("") == "0")
 	    		{
-	    			alert("oui");
 	    			stack.push('0');
 	    			stack.push('-');
 	    		}
@@ -182,7 +182,6 @@ function update(arg){
 
 	    			if(str.length<8)
 	    			{
-	    				alert(stack);
 	    				pile.push(eval(stack.join('')));
 	    			}
 	    			else
