@@ -154,8 +154,6 @@ function update(arg){
 	    case '=':
 	    {
 	    		stack.push(Number(pile.join("")));
-	    		
-	    		alert(stack);
 	    		erase();
 	    		if(eval(stack.join('')) =='Infinity')
 	    		{
