@@ -109,8 +109,17 @@ function update(arg){
 	    			stack.push(x);
 	    		}
 	    		erase();
-	    		disp(stack);
-	    		stack.push("+");
+	    		if(stack[0].toString().length>8)
+	    		{
+	    			$("#disp").text("Max Digit");
+	    			stack=[];
+	    		}
+	    		else
+	    		{
+	    			disp(stack);
+	    			stack.push("+");
+	    		}
+	    		
 
 	    		dispmode = true;
 
@@ -135,8 +144,16 @@ function update(arg){
 	    			stack.push(x);
 	    		}
 	    		erase();
-	    		disp(stack);
-	    		stack.push("-");
+	    		if(stack[0].toString().length>8)
+	    		{
+	    			$("#disp").text("Max Digit");
+	    			stack=[];
+	    		}
+	    		else
+	    		{
+	    			disp(stack);
+	    			stack.push("-");
+	    		}
 
 	    		dispmode = true;
 
@@ -161,8 +178,17 @@ function update(arg){
 	    			stack.push(x);
 	    		}
 	    		erase();
-	    		disp(stack);
-	    		stack.push("*");
+	    		if(stack[0].toString().length>8)
+	    		{
+	    			$("#disp").text("Max Digit");
+	    			stack=[];
+	    		}
+	    		else
+	    		{
+	    			disp(stack);
+	    			stack.push("*");
+	    		}
+	    		
 
 	    		dispmode = true;
 
