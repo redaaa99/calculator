@@ -1,10 +1,9 @@
 var pile =[];
-
+var dispmode = false;
 var stack = [];
 
 $("button").click(function() {
-	
-	
+	console.log(stack);
 	update($(this));
 
 });
@@ -15,7 +14,7 @@ $("button").click(function() {
 function erase()
 {
 	pile = [];
-	$("#disp").text('');
+	$("#disp").text('0');
 }
 function disp(arr)
 {
@@ -33,8 +32,13 @@ function update(arg){
 	    case '7':
 	    case '8':
 	    case '9':
-	    if(pile.length<8)
+	    if((pile.length<8))
 	    {
+	    	if(dispmode)
+	    	{
+	    		dispmode = false;
+	    		erase();
+	    	}
 
 	    	pile.push(Number(arg.attr('value')));
 	    	disp(pile);
@@ -42,6 +46,11 @@ function update(arg){
 	    break;
 	    case '0':
 	    {
+	    	if(dispmode)
+	    	{
+	    		dispmode = false;
+	    		erase();
+	    	}
 	    	if((pile.length<8) && (typeof(pile[0]) !== 'undefined'))
 		    {
 		    	pile.push('0');
@@ -57,8 +66,12 @@ function update(arg){
 	    }
 	    case 'ce':
 	    {
-	    	stack=[];
+	    	
+	    	z = stack.pop();
 	    	erase();
+	    	$("#disp").text(stack[0]);
+	    	stack.push(z.toString());
+	    	
 	    	break;
 	    }
 	    case '.':
@@ -83,55 +96,76 @@ function update(arg){
 	    {
 	    	if((typeof(pile[0]) !== 'undefined') && (Number(pile.join("")) !== 0))
 	    	{
+
+
+	    		x = $("#disp").text();
+	    		stack.push(x);
 	    		
-	    		stack.push(Number(pile.join("")));
-	    		stack.push('+');
-	    		stack.push('0');
-	    		x=eval(stack.join(""));
-	    		stack=[];
-	    		stack.push(x.toString());
-	    		stack.push('+');
+	    		if(stack.length===3)
+	    		{
+	    			
+	    			x=eval(stack.join(''));
+	    			stack=[]
+	    			stack.push(x);
+	    		}
 	    		erase();
+	    		disp(stack);
+	    		stack.push("+");
+
+	    		dispmode = true;
+
 	    	}
 
 	    }
 	    break;
 	    case '-':
 	    {
+	    	if((typeof(pile[0]) !== 'undefined') && (Number(pile.join("")) !== 0))
+	    	{
 
-	    		if(pile.join("") == "0")
+
+	    		x = $("#disp").text();
+	    		stack.push(x);
+	    		
+	    		if(stack.length===3)
 	    		{
-	    			stack.push('0');
-	    			stack.push('-');
+	    			
+	    			x=eval(stack.join(''));
+	    			stack=[]
+	    			stack.push(x);
 	    		}
-	    		else
-	    		{
-	    			stack.push(Number(pile.join("")));
-	    			stack.push('-');
-	    			stack.push('0');
-	    			x=eval(stack.join(""));
-	    			stack=[];
-	    			stack.push(x.toString());
-	    			stack.push('-');
-	    			erase();
-	    		}	
 	    		erase();
-	    	
+	    		disp(stack);
+	    		stack.push("-");
+
+	    		dispmode = true;
+
+	    	}
+
 	    }
 	    break;
 	    case '*':
 	    {
 	    	if((typeof(pile[0]) !== 'undefined') && (Number(pile.join("")) !== 0))
 	    	{
+
+
+	    		x = $("#disp").text();
+	    		stack.push(x);
 	    		
-	    		stack.push(Number(pile.join("")));
-	    		stack.push('*');
-	    		stack.push('1');
-	    		x=eval(stack.join(""));
-	    		stack=[];
-	    		stack.push(x.toString());
-	    		stack.push('*');
+	    		if(stack.length===3)
+	    		{
+	    			
+	    			x=eval(stack.join(''));
+	    			stack=[]
+	    			stack.push(x);
+	    		}
 	    		erase();
+	    		disp(stack);
+	    		stack.push("*");
+
+	    		dispmode = true;
+
 	    	}
 	    }
 	    break;
@@ -140,44 +174,47 @@ function update(arg){
 	    	if((typeof(pile[0]) !== 'undefined') && (Number(pile.join("")) !== 0))
 	    	{
 
-	    		stack.push(Number(pile.join("")));
-	    		stack.push('/');
-	    		stack.push('1');
-	    		x=eval(stack.join(""));
-	    		stack=[];
-	    		stack.push(x.toString());
-	    		stack.push('/');
+
+	    		x = $("#disp").text();
+	    		stack.push(x);
+	    		if(stack.length===3)
+	    		{
+	    			
+	    			x=eval(stack.join(''));
+	    			stack=[]
+	    			stack.push(x);
+	    		}
 	    		erase();
+	    		disp(stack);
+	    		stack.push("/");
+	    		dispmode = true;
+
 	    	}
+
 	    }
 	    break;
 	    case '=':
 	    {
-	    		stack.push(Number(pile.join("")));
-	    		erase();
-	    		if(eval(stack.join('')) =='Infinity')
-	    		{
-	    			pile.push('Error');
-	    		}
-	    		else
-	    		{
-	    			var x = eval(stack.join(''));
-					str = x.toString();
+    		y = $("#disp").text();
+    		stack.push(y);
+    		erase();
+    		pile.push(eval(stack.join("")));
+    		stack=[];
+    		if(pile[0]=='Infinity')
+    		{
+    			$("#disp").text("Error");
+    		}
+    		else if(pile[0].toString().length>8)
+    		{
+				$("#disp").text("Max Digit");
+    		}
+    		else
+    		{
+    			disp(pile);
+    		}
+    		
+    		dispmode = true;
 
-	    			if(str.length<8)
-	    			{
-	    				pile.push(eval(stack.join('')));
-	    			}
-	    			else
-	    			{
-	    				pile=[];
-	    				pile.push("Math Error");
-	    			}
-	    			
-	    		}
-	    		disp(pile);
-    			stack = [];	
-	    	
 	    }
 
 	    break;
